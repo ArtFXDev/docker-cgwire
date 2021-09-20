@@ -84,3 +84,19 @@ software and focus more on artistic work.
 Visit [cg-wire.com](https://cg-wire.com) for more information.
 
 [![CGWire Logo](https://zou.cg-wire.com/cgwire.png)](https://cgwire.com)
+
+## Documentation
+
+- [CORS documentation](https://developer.mozilla.org/fr/docs/Web/HTTP/CORS)
+
+- [Mathieu BOUZARD's kitsu nginx config (for reference)](https://gitlab.com/mathbou/docker-cgwire/-/blob/kitsu/nginx.conf)
+
+- [Why credentials are not supported when Access-Control-Allow-Origin \*](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS/Errors/CORSNotSupportingCredentials) (also see this [thread](https://stackoverflow.com/questions/19743396/cors-cannot-use-wildcard-in-access-control-allow-origin-when-credentials-flag-i))
+
+- [How to bypass Access-Control-Allow-Origin \* and still allow all origins](https://stackoverflow.com/questions/14499320/how-to-properly-setup-nginx-access-control-allow-origin-into-response-header-bas)
+
+- [Which CORS headers are needed when using an Authorization header? (used when sending requests to Kitsu)](https://www.sjoerdlangkemper.nl/2018/09/12/authorization-header-and-cors/)
+
+- [Setting CORS headers in Nginx](https://enable-cors.org/server_nginx.html)
+
+- [Setting up Nginx for multiple docker containers](https://www.bogotobogo.com/DevOps/Docker/Docker-Compose-Nginx-Reverse-Proxy-Multiple-Containers.php)
