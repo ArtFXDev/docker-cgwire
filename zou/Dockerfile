@@ -4,13 +4,14 @@ LABEL maintainer="Mathieu Bouzard <mathieu.bouzard@gmail.com>"
 
 USER root
 
-RUN apk add --no-cache ffmpeg bzip2 postgresql-libs postgresql-client\
+RUN apk add --no-cache ffmpeg bzip2 postgresql-libs postgresql-client git\
     && apk add --no-cache --virtual .build-deps make jpeg-dev zlib-dev musl-dev gcc g++ libffi-dev postgresql-dev
 
 ARG ZOU_VERSION
 
 RUN pip install --upgrade pip wheel setuptools \
-    && pip install zou==${ZOU_VERSION}\
+    && git clone https://github.com/ArtFXDev/zou.git /opt/zou \
+    && pip install /opt/zou\
     && apk del .build-deps
 
 ENV ZOU_FOLDER /usr/local/lib/python3.7/site-packages/zou
