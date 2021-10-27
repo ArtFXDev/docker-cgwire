@@ -11,15 +11,17 @@ function build_images() {
         export KITSU_VERSION=`curl https://api.github.com/repos/cgwire/kitsu/commits | jq -r '.[].commit.message | select(. | test("[0-9]+(\\\\.[0-9]+)+"))?' | grep -m1 ""`
         echo "${GREEN}Set KITSU_VERSION to $KITSU_VERSION"
     fi
+
     if [[ $ZOU_VERSION == "latest" ]]; then
         export ZOU_VERSION=`curl https://api.github.com/repos/cgwire/zou/commits | jq -r '.[].commit.message | select(. | test("[0-9]+(\\\\.[0-9]+)+"))?' | grep -m1 ""`
         echo "${GREEN}Set ZOU_VERSION to $ZOU_VERSION"
     fi
 
-    if [ ! -e "./kitsu/Dockerfile" ] || [ ! -e "./zou/Dockerfile" ]; then
-        echo "${ERROR}Kitsu and Zou Dockerfiles required"
+    if [ ! -e "./nginx/Dockerfile" ] || [ ! -e "./zou/Dockerfile" ]; then
+        echo "${ERROR}Nginx (Kitsu and silex-front) and Zou Dockerfiles required"
         exit 1
     fi
+
     docker-compose -f docker-compose.yml -f docker-compose.build.yml build --force-rm --pull --compress
 }
 

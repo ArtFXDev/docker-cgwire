@@ -11,10 +11,10 @@ x-zou-build: &zou-build
             TMP_DIR: ${TMP_DIR:-/tmp/zou}
 
 services:
-    kitsu:
-        image: kitsu:${KITSU_VERSION:-latest}
+    nginx:
+        image: nginx:${KITSU_VERSION:-latest}
         build:
-            context: ./kitsu
+            context: ./nginx
             args:
                 KITSU_VERSION: ${KITSU_VERSION:-latest}
 

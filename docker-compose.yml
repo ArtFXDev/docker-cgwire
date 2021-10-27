@@ -15,10 +15,10 @@ x-backend-volumes: &backend_volumes
         - 'tmp:${TMP_DIR:-/tmp/zou}'
 
 services:
-    kitsu:
+    nginx:
         <<: *base
         <<: *env
-        container_name: ${COMPOSE_PROJECT_NAME:?}-kitsu
+        container_name: ${COMPOSE_PROJECT_NAME:?}-nginx
         image: registry.gitlab.com/mathbou/docker-cgwire/kitsu:${KITSU_VERSION:-latest}
         depends_on:
             - zou-app
