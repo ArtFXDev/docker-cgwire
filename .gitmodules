@@ -1,3 +1,6 @@
 [submodule "zou/zou"]
 	path = zou/zou
 	url = https://github.com/ArtFXDev/zou
+[submodule "kitsu/silex-front"]
+	path = kitsu/silex-front
+	url = https://github.com/ArtFXDev/silex-front
