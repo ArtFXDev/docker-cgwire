@@ -48,7 +48,7 @@ function compose_up() {
 
 function compose_down() {
     echo "${YELLOW}STOP CONTAINERS"
-    docker-compose down
+    docker-compose down --remove-orphans
 }
 
 
