@@ -4,3 +4,4 @@
 [submodule "nginx/silex-front"]
 	path = nginx/silex-front
 	url = https://github.com/ArtFXDev/silex-front
+	branch = dev
