@@ -28,7 +28,8 @@ FROM nginx:alpine
 
 WORKDIR /opt
 
-RUN apk add --no-cache --virtual .build-deps git
+# Install package dependencies (git)
+RUN apk --update add --no-cache --virtual .build-deps git
 
 # Disable git warning on detached head
 RUN git config --global advice.detachedHead false
