@@ -1,89 +1,57 @@
-### Note
+# Silex Docker
 
-This repository is a fork of Mathieu BOUZARD's [original repository](https://gitlab.com/mathbou/docker-cgwire).
-It was adapted because we needed to add CORS headers and the Kitsu container was already using Nginx.
+![](https://img.shields.io/badge/Docker-309cef?style=for-the-badge&logo=docker&logoColor=white)
 
-# Docker-cgwire
+Silex Docker is the repository for deploying the services of the pipeline.
 
-Docker compose for [Kitsu](https://kitsu.cg-wire.com/) and [Zou](https://zou.cg-wire.com/)
+## Introduction
 
-#### Use local images (run this)
+To deploy Silex, the following services are needed:
 
-```bash
-bash build.sh -l
-```
+- `nginx` -> this is the reverse proxy responsible for redirecting requests to the server to the appropriate services. It runs on the port `80`.
 
-#### Stop the containers
+  You can modify the [`nginx.conf`](./nginx/nginx.conf) configuration file to change the DNS pointing to your server. By default it's `kitsu.(prod|preprod).silex.artfx.fr`
 
-```bash
-bash build.sh -d
-```
+- `silex-front` -> the Silex frontend application: [silex-front](https://github.com/ArtFXDev/silex-front). It's bundled in the Nginx container itself.
 
-#### Flags:
+- `kitsu` -> the CGWire web interface of Zou. It's bundled in the Nginx container itself.
 
-```
-    -l, --local             Use local images
-    -e, --env=ENV_FILE      Set custom env file. If not set ./env is used
-    -d, --down              Compose down the stack
-    -h, --help              Show this help
-```
+- `zou` -> the CGWire REST api. It's pointing to our [fork](https://github.com/ArtFXDev/zou).
 
-## LDAP
+- `postgresql` -> the database used by Zou to store the pipeline data
 
-Add your [LDAP variables](https://zou.cg-wire.com/configuration/#ldap) to the env file.
+- `redis` -> The queue system used by Zou
+
+## Installation
+
+### Prerequisites
+
+The `build.sh` script need `jq` to be installed. On a debian based machine use:
 
 ```bash
-bash ldap_sync.sh
+$ sudo apt install jq
 ```
 
-#### LDAP flags
+You'll also need `docker-compose`, install it on your platform [here](https://docs.docker.com/compose/install/).
 
-```
-    -e, --env=ENV_FILE      Set custom env file, must be the same as the env used with build.sh
-    -h, --help              Show this help
-```
+### Install
 
-## DB Upgrade
-
-**[- Be sure to backup your datas before upgrading. -]**
+Clone the repository and build the containers:
 
 ```bash
-# bash db_upgrade [options] oldDbVersion newDbVersion
-
-# PostgreSql 9.5 to 11
-
-bash db_upgrade 9.5 11
+$ git clone https://github.com/ArtFXDev/silex-docker
+$ bash build.sh --local # build and run local docker images
 ```
 
-Don't forget to update the DB_VERSION key in your 'env' file **after** the upgrade.
+## Usage
 
-#### DB Upgrade flags
+To start the containers, just use:
 
-```
-    -e, --env=ENV_FILE      Set custom env file, must be the same as the env used with build.sh
-    -d, --dry-run
-    -h, --help              Show this help
+```bash
+$ bash build.sh --local # or -l for short
 ```
 
-## Default credentials:
-
-- login: admin@example.com
-- password: mysecretpassword
-
-## About authors
-
-Those Dockerfiles are based on CG Wire work, a company based in France. They help small
-to midsize CG studios to manage their production and build a pipeline
-efficiently.
-
-They apply software craftsmanship principles as much as possible. They love
-coding and consider that strong quality and good developer experience matter a lot.
-Through their diverse experiences, they allow studios to get better at doing
-software and focus more on artistic work.
-
-Visit [cg-wire.com](https://cg-wire.com) for more information.
-
-[![CGWire Logo](https://zou.cg-wire.com/cgwire.png)](https://cgwire.com)
+To shutdown all the containers and clean it, use the `--down / -d` option.
 
 ## Documentation
 
@@ -100,3 +68,20 @@ Visit [cg-wire.com](https://cg-wire.com) for more information.
 - [Setting CORS headers in Nginx](https://enable-cors.org/server_nginx.html)
 
 - [Setting up Nginx for multiple docker containers](https://www.bogotobogo.com/DevOps/Docker/Docker-Compose-Nginx-Reverse-Proxy-Multiple-Containers.php)
+
+## Contributing
+
+Pull requests and issues are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+## Special Thanks
+
+Visit [cg-wire.com](https://cg-wire.com) for more information.
+
+[![CGWire Logo](https://zou.cg-wire.com/cgwire.png)](https://cgwire.com)
+
+This repository is based on a repository from Mathieu BOUZARD:  [`docker-cgwire`](https://gitlab.com/mathbou/docker-cgwire).
+
+## License
+
+[Apache-2.0](./LICENSE.md) [@ArtFX](https://artfx.school/)
+

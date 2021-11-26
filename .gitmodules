@@ -2,6 +2,6 @@
 	path = zou/zou
 	url = https://github.com/ArtFXDev/zou
 [submodule "nginx/silex-front"]
-	path = nginx/silex-front
+	path = silex-front
 	url = https://github.com/ArtFXDev/silex-front
 	branch = dev
