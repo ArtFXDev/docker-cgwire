@@ -39,7 +39,7 @@ You'll also need `docker-compose`, install it on your platform [here](https://do
 Clone the repository and build the containers:
 
 ```bash
-$ git clone https://github.com/ArtFXDev/silex-docker
+$ git clone --recurse-submodules https://github.com/ArtFXDev/silex-docker
 $ bash build.sh --local # build and run local docker images
 ```
 
