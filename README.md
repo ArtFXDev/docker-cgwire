@@ -53,6 +53,16 @@ $ bash build.sh --local # or -l for short
 
 To shutdown all the containers and clean it, use the `--down / -d` option.
 
+### Update
+
+`silex-front` and our fork of `zou` are installed as git submodules.
+To update them in case of a newer version, do:
+
+```bash
+$ git pull
+$ git submodule update --remote
+```
+
 ## Documentation
 
 - [CORS documentation](https://developer.mozilla.org/fr/docs/Web/HTTP/CORS)
