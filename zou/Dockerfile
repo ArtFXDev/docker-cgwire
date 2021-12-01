@@ -2,7 +2,7 @@ FROM python:3.7-alpine3.14
 
 USER root
 
-RUN apk add --no-cache ffmpeg bzip2 postgresql-libs postgresql-client\
+RUN apk add --no-cache ffmpeg bzip2 libpq postgresql-client\
     && apk add --no-cache --virtual .build-deps make jpeg-dev zlib-dev musl-dev gcc g++ libffi-dev postgresql-dev
 
 ARG ZOU_VERSION
