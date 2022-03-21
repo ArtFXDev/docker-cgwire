@@ -46,6 +46,9 @@ services:
             TRACTOR_URL: "${TRACTOR_URL}"
             TRACTOR_LOGIN: "${TRACTOR_LOGIN}"
             TRACTOR_PASSWORD: "${TRACTOR_PASSWORD}"
+            FOG_URL: "${FOG_URL}"
+            FOG_API_TOKEN: "${FOG_API_TOKEN}" 
+            FOG_USER_TOKEN: "${FOG_USER_TOKEN}"
         networks:
             - harvest
         depends_on:
