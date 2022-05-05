@@ -4,3 +4,6 @@
 [submodule "nginx/silex-front"]
 	path = silex-front
 	url = https://github.com/ArtFXDev/silex-front
+[submodule "doc"]
+	path = doc
+	url = https://github.com/ArtFXDev/silex-doc.git
