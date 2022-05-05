@@ -7,3 +7,10 @@
 [submodule "doc"]
 	path = doc
 	url = https://github.com/ArtFXDev/silex-doc.git
+	branch = beta
+[submodule "harvest/harvest-ui"]
+	path = harvest/harvest-ui
+	url = https://github.com/ArtFXDev/harvest-ui/
+[submodule "harvest/harvest-api"]
+	path = harvest/harvest-api
+	url = https://github.com/ArtFXDev/harvest-api

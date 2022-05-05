@@ -10,19 +10,64 @@ x-zou-build: &zou-build
             TMP_DIR: ${TMP_DIR:-/tmp/zou}
 
 services:
+    # SILEX (nginx)
     nginx:
         image: nginx:${KITSU_VERSION:-latest}
+        networks:
+            - internal
+            - harvest
         build:
             context: .
             dockerfile: ./nginx/Dockerfile
             args:
                 KITSU_VERSION: ${KITSU_VERSION:-latest}
 
+    # HARVEST
+    harvest-postgres:
+        image: postgres:10.3
+        restart: always
+        container_name: harvest-postgres
+        environment:
+            POSTGRES_DB: "harvest"
+            POSTGRES_USER: "${HARVEST_DB_USER}"
+            POSTGRES_PASSWORD: "${HARVEST_DB_PASSWORD}"
+        volumes:
+            - harvest:/var/lib/postgresql/data
+        networks:
+            - harvest
+
+    harvest-api:
+        container_name: harvest-api
+        image: "harvest-api"
+        restart: always
+        build: ./harvest/harvest-api
+        environment:
+            DATABASE_URL: "postgresql://${HARVEST_DB_USER}:${HARVEST_DB_PASSWORD}@harvest-postgres:5432/harvest?schema=public"
+            TRACTOR_URL: "${TRACTOR_URL}"
+            TRACTOR_LOGIN: "${TRACTOR_LOGIN}"
+            TRACTOR_PASSWORD: "${TRACTOR_PASSWORD}"
+            FOG_URL: "${FOG_URL}"
+            FOG_API_TOKEN: "${FOG_API_TOKEN}" 
+            FOG_USER_TOKEN: "${FOG_USER_TOKEN}"
+        networks:
+            - harvest
+        depends_on:
+            - harvest-postgres
+
+    # CGWIRE (Zou)
     zou-app:
         <<: *zou-build
 
     zou-event:
         <<: *zou-build
-       
+
     zou-jobs:
         <<: *zou-build
+
+volumes:
+    harvest:
+        name: harvest
+
+networks:
+    harvest:
+        name: harvest
